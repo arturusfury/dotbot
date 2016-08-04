@@ -86,7 +86,7 @@
             echo -e "\n${RED}Current date :$NC " ; date
             echo -e "\n${RED}Machine stats :$NC " ; uptime
             echo -e "\n${RED}Current network location :$NC " ; scselect
-            echo -e "\n${RED}Public facing IP Address :$NC " ;myip
+            echo -e "\n${RED}Public facing IP Address :$NC " ; myip
             #echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
             echo
         }
@@ -96,6 +96,7 @@
     alias ga="git add"
     alias gb="git branch"
     alias gc="git commit"
+    # alias gcl="git clone"
     alias gcm="git commit -m"
     alias gca="git commit -m 'This was an aliased commit.'"
     alias gco="git checkout"
@@ -103,6 +104,15 @@
     alias gpom="git push origin master"
     alias gcom="git checkout master"
     alias gbkup="USER=arturusfury;PAGE=1; curl \"https://api.github.com/users/$USER/repos?page=$PAGE&per_page=100\" | grep -e 'git_url*' | cut -d \" -f 4 | xargs -L1 git clone" # Will clone the first 100 repo's from any user's github account.  Change the PAGE=1 if you need to grab more then a hundred.
+    function gclone {
+      cd ~/Development/code/arturusfury.github.io/
+      reponame=${1##*/}
+      reponame=${reponame%.git}
+      git clone "$1" "$reponame";
+      cd "$reponame";
+      bundle install;
+      atom .;
+    }
 
     # =OTHER-ALIASES============================================================
     alias dbstart="postgres -D /usr/local/var/postgres"
@@ -141,12 +151,12 @@
       ls
     }
 
-  # meta-p and meta-n: "starts with" history searching
-  # taken from http://blog.veez.us/the-unix-canon-n-p
-  bind '"\ep": history-search-backward'
-  bind '"\en": history-search-forward'
+    # meta-p and meta-n: "starts with" history searching
+    # taken from http://blog.veez.us/the-unix-canon-n-p
+    bind '"\ep": history-search-backward'
+    bind '"\en": history-search-forward'
 
-  # suspended processes
+    # suspended processes
     alias j=jobs
 
     for i in $(seq 30)
@@ -155,9 +165,9 @@
       alias "k$i=kill -9 %$i"
     done
 
-if [ -f ~/.git-completion.bash ]; then
-. ~/.git-completion.bash
-fi
+    if [ -f ~/.git-completion.bash ]; then
+    . ~/.git-completion.bash
+    fi
 
     # kill jobs by job number, or range of job numbers
     # example: k 1 2 5
@@ -189,30 +199,9 @@ fi
       done
     }
 
-
-# PROGRAMS (functions, binaries, aliases that behave like programs)
-
-  # Give it a # and a dir, it will cd to that dir, then `cd ..` however many times you've indicated with the number
-  # The number defaults to 1, the dir, if not provided, defaults to the output of the previous command
-  # This lets you find the dir on one line, then run the command on the next
-    2dir() {
-      last_command="$(history | tail -2 | head -1 | sed 's/^ *[0-9]* *//')"
-      count="${1-1}"
-      name="${2:-$($last_command)}"
-      while [[ $count > 0 ]]
-        do
-          name="$(dirname "$name")"
-          ((count--))
-      done
-      echo "$name"
-      cd "$name"
-    }
-
-  # take you to the dir of a file in a gem. e.g. `2gem rspec`
-    2gem () {
-      cd "$(dirname $(gem which $1))"
-    }
-
+    if [ -f ~/.git-completion.bash ]; then
+      . ~/.git-completion.bash
+    fi
 
 # PROMPT
   function parse_git_branch {
@@ -240,11 +229,12 @@ fi
     if [[ ! -z "$git_branch" ]]; then countstr+=" [$git_branch]- "; fi
 
     # cwd with coloured current directory
-    path="$(dirname `pwd`)"
-    dir="$(basename `pwd`)"
+    fullpath=`pwd`
+    path="$(dirname "$fullpath")"
+    dir="$(basename "$fullpath")"
     countstr+="${path}-"
     countstr+="${dir}--"
-    ps1="${ps1} $(prompt_segment "\[\e[90m\]${path}/\[\e[m\]")$(prompt_segment "\[\e[1;4;97m\]$dir\[\e[m\]" 34)"
+    ps1="${ps1} $(prompt_segment "\[\e[90m\]$path/\[\e[m\]")$(prompt_segment "\[\e[1;4;97m\]$dir\[\e[m\]" 34)"
 
 
     line="`printf -vch "%${COLUMNS}s" ""; printf "%s" "${ch// /-}"`"

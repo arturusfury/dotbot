@@ -10,7 +10,7 @@
 # 	default = simple
 [core]
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-  excludesfile = /Users/breynolds/.gitignore
+	excludesfile = /Users/breynolds/.gitignore_global
 [alias]
   st = status
   ci = commit
@@ -60,3 +60,7 @@
   trustExitCode = true
 [merge]
   tool = opendiff
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
