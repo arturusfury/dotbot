@@ -9,135 +9,116 @@
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"          # Load RVM into a shell session *as a function*
 
 # ==ALIASES=====================================================================
-    export CLICOLOR=1
-    export LSCOLORS=ExFxBxDxCxegedabagacad
-    # =SYSTEM-ALIASES===========================================================
-    alias reload="source ~/.bash_profile"       # Used to reload the bash shell after making changes
-    alias bashprofile="atom ~/.bash_profile"    # Open's the .bash_profile in atom editor quickly
-    function md { mkdir $1; cd $1; }            # Creates a Directory then CDs right into the new directory
+  export CLICOLOR=1
+  export LSCOLORS=ExFxBxDxCxegedabagacad
+  # =SYSTEM-ALIASES===========================================================
+  alias reload="source ~/.bash_profile"       # Used to reload the bash shell after making changes
+  alias bashprofile="atom ~/.bash_profile"    # Open's the .bash_profile in atom editor quickly
+  function md { mkdir $1; cd $1; }            # Creates a Directory then CDs right into the new directory
 
-    alias cp='cp -iv'                           # Preferred 'cp' implementation
-    alias mv='mv -iv'                           # Preferred 'mv' implementation
-    alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
-    alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
-    alias less='less -FSRXc'                    # Preferred 'less' implementation
-    alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
-    alias ..='cd ../'                           # Go back 1 directory level
-    alias ...='cd ../../'                       # Go back 2 directory levels
-    alias .3='cd ../../../'                     # Go back 3 directory levels
-    alias .4='cd ../../../../'                  # Go back 4 directory levels
-    alias .5='cd ../../../../../'               # Go back 5 directory levels
-    alias .6='cd ../../../../../../'            # Go back 6 directory levels
-    alias edit='atom'                           # edit:         Opens any file in sublime editor
-    alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
-    alias ~="cd ~"                              # ~:            Go Home
-    alias c='clear'                             # c:            Clear terminal display
-    alias which='type -all'                     # which:        Find executables
-    alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
-    alias show_options='shopt'                  # Show_options: display bash options settings
-    alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
-    alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
-    mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
-    trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
-    ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
-    alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
+  alias cp='cp -iv'                           # Preferred 'cp' implementation
+  alias mv='mv -iv'                           # Preferred 'mv' implementation
+  alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
+  alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
+  alias less='less -FSRXc'                    # Preferred 'less' implementation
+  alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
+  alias ..='cd ../'                           # Go back 1 directory level
+  alias ...='cd ../../'                       # Go back 2 directory levels
+  alias .3='cd ../../../'                     # Go back 3 directory levels
+  alias .4='cd ../../../../'                  # Go back 4 directory levels
+  alias .5='cd ../../../../../'               # Go back 5 directory levels
+  alias .6='cd ../../../../../../'            # Go back 6 directory levels
+  alias edit='atom'                           # edit:         Opens any file in sublime editor
+  alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
+  alias ~="cd ~"                              # ~:            Go Home
+  alias c='clear'                             # c:            Clear terminal display
+  alias which='type -all'                     # which:        Find executables
+  alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
+  alias show_options='shopt'                  # Show_options: display bash options settings
+  alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
+  alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
+  mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
+  trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
+  ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
+  alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
 
-    #   extract:  Extract most know archives with one command
-    #   ---------------------------------------------------------
-        extract () {
-            if [ -f $1 ] ; then
-              case $1 in
-                *.tar.bz2)   tar xjf $1     ;;
-                *.tar.gz)    tar xzf $1     ;;
-                *.bz2)       bunzip2 $1     ;;
-                *.rar)       unrar e $1     ;;
-                *.gz)        gunzip $1      ;;
-                *.tar)       tar xf $1      ;;
-                *.tbz2)      tar xjf $1     ;;
-                *.tgz)       tar xzf $1     ;;
-                *.zip)       unzip $1       ;;
-                *.Z)         uncompress $1  ;;
-                *.7z)        7z x $1        ;;
-                *)     echo "'$1' cannot be extracted via extract()" ;;
-                 esac
-             else
-                 echo "'$1' is not a valid file"
-             fi
-        }
+  # Digital Ocean Droplet Aliases
+  alias breynolds.co='ssh breynolds@breynolds.co'
 
-    # =NETWORK-ALIASES==========================================================
-    alias myip='curl ip.appspot.com'                    # myip:         Public facing IP Address
-    alias netCons='lsof -i'                             # netCons:      Show all open TCP/IP sockets
-    alias flushDNS='dscacheutil -flushcache'            # flushDNS:     Flush out the DNS Cache
-    alias lsock='sudo /usr/sbin/lsof -i -P'             # lsock:        Display open sockets
-    alias lsockU='sudo /usr/sbin/lsof -nP | grep UDP'   # lsockU:       Display only open UDP sockets
-    alias lsockT='sudo /usr/sbin/lsof -nP | grep TCP'   # lsockT:       Display only open TCP sockets
-    alias ipInfo0='ipconfig getpacket en0'              # ipInfo0:      Get info on connections for en0
-    alias ipInfo1='ipconfig getpacket en1'              # ipInfo1:      Get info on connections for en1
-    alias openPorts='sudo lsof -i | grep LISTEN'        # openPorts:    All listening connections
-    alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rules inc/ blocked IPs
+  #   extract:  Extract most know archives with one command
+  #   ---------------------------------------------------------
+      extract () {
+          if [ -f $1 ] ; then
+            case $1 in
+              *.tar.bz2)   tar xjf $1     ;;
+              *.tar.gz)    tar xzf $1     ;;
+              *.bz2)       bunzip2 $1     ;;
+              *.rar)       unrar e $1     ;;
+              *.gz)        gunzip $1      ;;
+              *.tar)       tar xf $1      ;;
+              *.tbz2)      tar xjf $1     ;;
+              *.tgz)       tar xzf $1     ;;
+              *.zip)       unzip $1       ;;
+              *.Z)         uncompress $1  ;;
+              *.7z)        7z x $1        ;;
+              *)     echo "'$1' cannot be extracted via extract()" ;;
+               esac
+           else
+               echo "'$1' is not a valid file"
+           fi
+      }
 
-    #   ii:  display useful host related informaton
-    #   -------------------------------------------------------------------
-        ii() {
-            echo -e "\nYou are logged on ${RED}$HOST"
-            echo -e "\nAdditionnal information:$NC " ; uname -a
-            echo -e "\n${RED}Users logged on:$NC " ; w -h
-            echo -e "\n${RED}Current date :$NC " ; date
-            echo -e "\n${RED}Machine stats :$NC " ; uptime
-            echo -e "\n${RED}Current network location :$NC " ; scselect
-            echo -e "\n${RED}Public facing IP Address :$NC " ; myip
-            #echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
-            echo
-        }
+  # =NETWORK-ALIASES==========================================================
+  alias myip='curl ip.appspot.com'                    # myip:         Public facing IP Address
+  alias netCons='lsof -i'                             # netCons:      Show all open TCP/IP sockets
+  alias flushDNS='dscacheutil -flushcache'            # flushDNS:     Flush out the DNS Cache
+  alias lsock='sudo /usr/sbin/lsof -i -P'             # lsock:        Display open sockets
+  alias lsockU='sudo /usr/sbin/lsof -nP | grep UDP'   # lsockU:       Display only open UDP sockets
+  alias lsockT='sudo /usr/sbin/lsof -nP | grep TCP'   # lsockT:       Display only open TCP sockets
+  alias ipInfo0='ipconfig getpacket en0'              # ipInfo0:      Get info on connections for en0
+  alias ipInfo1='ipconfig getpacket en1'              # ipInfo1:      Get info on connections for en1
+  alias openPorts='sudo lsof -i | grep LISTEN'        # openPorts:    All listening connections
+  alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rules inc/ blocked IPs
 
-    # =GITHUB-ALIASES===========================================================
-    alias gs="git status"
-    alias ga="git add"
-    alias gb="git branch"
-    alias gc="git commit"
-    # alias gcl="git clone"
-    alias gcm="git commit -m"
-    alias gca="git commit -m 'This was an aliased commit.'"
-    alias gco="git checkout"
-    alias hc="hub create"
-    alias gpom="git push origin master"
-    alias gcom="git checkout master"
-    alias gbkup="USER=arturusfury;PAGE=1; curl \"https://api.github.com/users/$USER/repos?page=$PAGE&per_page=100\" | grep -e 'git_url*' | cut -d \" -f 4 | xargs -L1 git clone" # Will clone the first 100 repo's from any user's github account.  Change the PAGE=1 if you need to grab more then a hundred.
-    function gclone {
-      cd ~/Development/code/arturusfury.github.io/
-      reponame=${1##*/}
-      reponame=${reponame%.git}
-      git clone "$1" "$reponame";
-      cd "$reponame";
-      bundle install;
-      atom .;
-    }
+  #   ii:  display useful host related informaton
+  #   -------------------------------------------------------------------
+      ii() {
+          echo -e "\nYou are logged on ${RED}$HOST"
+          echo -e "\nAdditionnal information:$NC " ; uname -a
+          echo -e "\n${RED}Users logged on:$NC " ; w -h
+          echo -e "\n${RED}Current date :$NC " ; date
+          echo -e "\n${RED}Machine stats :$NC " ; uptime
+          echo -e "\n${RED}Current network location :$NC " ; scselect
+          echo -e "\n${RED}Public facing IP Address :$NC " ; myip
+          #echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
+          echo
+      }
 
-    # =OTHER-ALIASES============================================================
-    alias dbstart="postgres -D /usr/local/var/postgres"
+  # =GITHUB-ALIASES===========================================================
+  alias gs="git status"
+  alias ga="git add"
+  alias gb="git branch"
+  alias gc="git commit"
+  # alias gcl="git clone"
+  alias gcm="git commit -m"
+  alias gca="git commit -m 'This was an aliased commit.'"
+  alias gco="git checkout"
+  alias hc="hub create"
+  alias gpom="git push origin master"
+  alias gcom="git checkout master"
+  alias gbkup="USER=arturusfury;PAGE=1; curl \"https://api.github.com/users/$USER/repos?page=$PAGE&per_page=100\" | grep -e 'git_url*' | cut -d \" -f 4 | xargs -L1 git clone" # Will clone the first 100 repo's from any user's github account.  Change the PAGE=1 if you need to grab more then a hundred.
+  function gclone {
+    cd ~/Development/code/arturusfury.github.io/
+    reponame=${1##*/}
+    reponame=${reponame%.git}
+    git clone "$1" "$reponame";
+    cd "$reponame";
+    bundle install;
+    atom .;
+  }
 
-    # =SINATRA==================================================================
-    alias sinset="mkdir app &&
-                  mkdir app/models &&
-                  mkdir app/public &&
-                  mkdir app/views &&
-                  mkdir app/controllers &&
-                  mkdir db &&
-                  touch app/views/index.erb &&
-                  touch app/public/application.css &&
-                  touch config.ru &&
-                  touch Gemfile &&
-                  touch Gemfile.lock &&
-                  git init &&
-                  echo -n 'require "bundler"
-                  Bundler.require
-
-                  $LOAD_PATH.unshift(File.expand_path("app", __dir__))
-
-                  require "controllers/task_manager_app"
-
-                  run #app name here ' >> config.ru"
+  # =OTHER-ALIASES============================================================
+  alias dbstart="postgres -D /usr/local/var/postgres"
 
 # ==PATH-ALIASES================================================================
     alias mygit="cd ~/Development/code/arturusfury.github.io/"                  # Moves directly into my local github folder containing all of my repos
@@ -204,14 +185,14 @@
     fi
 
 # PROMPT
-  function parse_git_branch {
-    branch=`git rev-parse --abbrev-ref HEAD 2>/dev/null`
-    if [ "HEAD" = "$branch" ]; then
-      echo "(no branch)"
-    else
-      echo "$branch"
-    fi
-  }
+function parse_git_branch {
+  branch=`git rev-parse --abbrev-ref HEAD 2>/dev/null`
+  if [ "HEAD" = "$branch" ]; then
+    echo "(no branch)"
+  else
+    echo "$branch"
+  fi
+}
 
   function prompt_segment {
     if [[ ! -z "$1" ]]; then
